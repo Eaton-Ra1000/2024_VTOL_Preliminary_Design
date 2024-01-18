@@ -30,12 +30,22 @@ Beta = sqrt(1 - (Minf ^ 2));    % frandtl subsonic compressivity coefficient
 cla = 0.105*180/pi;  % section lift effectiveness [/rad]
 kappa = cla / (2 * pi); % airfoil camber degree dimentionless coefficient [/degree]
 
-CLa = (2 * pi * A) / (2 + sqrt(((((A ^ 2) * (Beta ^ 2)) / (kappa ^ 2)) * (1 + ((tan(Ac2) ^ 2) / Beta ^ 2)) + 4)))    % wing lift effectiveness [/rad]
+CLa = (2 * pi * A) / (2 + sqrt(((((A ^ 2) * (Beta ^ 2)) / (kappa ^ 2)) * (1 + ((tan(Ac2) ^ 2) / Beta ^ 2)) + 4)));    % wing lift effectiveness [/rad]
 %% wing zero-lift angle of attack: 날개에서 양력이 발생하지 않는 특정 받음각
 
 a_0 =  -4.3;    %%%%%% 2D airfoil의 양력이 발생하지 않는 받음각
 e(y) = epsilonr+(epsilont-epsilonr)/(b/2)*y;    % y에서 뒤틀림 각
-a_0wing = 2/Sw*int((a_0-e(y))*c(y),b/2,0);      % 
+a_0wing = 2/Sw*int((a_0-e(y))*c(y),0,b/2);      % 3차원 날개에서 양력이 발생하지 않는 받음각
+c_bar = 2/Sw*int(c(y)^2,0,b/2);
+x_LE(y) = 
+X_LE_MAC = 2/Sw*int(x_LE(y)*c(y),0,b/2);
+
+
+
+
+
+
+
 
 
 
