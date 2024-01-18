@@ -1,7 +1,7 @@
 clear all
 close all
 clc
-
+ef
 %% main wing airfoil is NACA6412
 
 
