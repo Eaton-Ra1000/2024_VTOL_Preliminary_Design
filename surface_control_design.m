@@ -4,6 +4,8 @@ clc
 
 %% main wing airfoil is NACA6412
 
+
+efw
 %% 3-D wing condition and definition
 
 b = 2;   % wing span [m]
