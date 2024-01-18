@@ -37,8 +37,13 @@ a_0 =  -4.3;    %%%%%% 2D airfoil의 양력이 발생하지 않는 받음각
 e(y) = epsilonr+(epsilont-epsilonr)/(b/2)*y;    % y에서 뒤틀림 각
 a_0wing = 2/Sw*int((a_0-e(y))*c(y),0,b/2);      % 3차원 날개에서 양력이 발생하지 않는 받음각
 c_bar = 2/Sw*int(c(y)^2,0,b/2);
-x_LE(y) = 
+x_LE(y) = 0;
 X_LE_MAC = 2/Sw*int(x_LE(y)*c(y),0,b/2);
+Y_MAC = 2/184*int(y*c(y),0,b/2);
+X_AC_wing = X_LE_MAC + 0.25*c_bar;
+%% wing pitching moment coefficient: 날개 피칭 모멘트 계수
+
+C_M_AC = 2/Sw/c_bar*(int(c_m_ac(y)*c(y)^2,0,b/2)-int(cla(y)*(a_0wing+epsilon(y)-a_0(y)*()),0,b/2)-
 
 
 
@@ -68,7 +73,6 @@ Y_d = 0.4;  % coordinate of mean drag of three lifting surfaces(m)
 Sh = 0.1;   % horizon tail wing area [m^2]
 Sv = 0.02;  % vertical tail wing area [m^2]
 P_ss = sqrt(2*L_A/p/(Sw+Sh+Sv)/C_DR/Y_d^3) % Steady State Roll Rate [rad/s]
-
 
 
 
