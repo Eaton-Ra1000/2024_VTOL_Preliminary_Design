@@ -38,7 +38,7 @@ epsilon = @(y) epsilonr+(epsilont-epsilonr)/(b/2)*y;    % y에서 뒤틀림 각
 fun_a_0wing = @(y) (a_0 - epsilon(y)).*c(y);    % a_0wing 계산을 위해 지정한 함수
 a_0wing = 2/Sw*integral(fun_a_0wing,0,b/2);     % 3d에서 양력이 발생하지 않는 받음각 [degree]
 
-%% 평균 공력 시위
+%% 평균 공력 시위 (*외부 식)
 
 fun_c_bar = @(y) c(y).^2;
 c_bar = 2/Sw*integral(fun_c_bar,0,b/2);     % 평균 공력시위
@@ -53,20 +53,20 @@ fun_C_M_AC1 = @(y) c_m_ac.*c(y).^2;
 fun_C_M_AC2 = @(y) cla.*(a_0wing+epsilon(y)-a_0).*(0.25*c(y)-X_AC_wing).*c(y);
 C_M_AC = 2/Sw/c_bar*(integral(fun_C_M_AC1,0,b/2)-integral(fun_C_M_AC2,0,b/2));  % wing pitching moment codfficient 날개 피칭 모멘트 계수
 
-%% 롤링 모멘트 계수 (받음각 a_wing일 때)
+%% 롤링 모멘트 계수 (받음각 a_wing일 때) (* 받음각, 옆 미끄러짐각 따른 Variation 가능)
 
 a_wing = 2;     % 받음각 [degree]
-C_L_roll_ALE = CLa*(a_wing - a_0wing)*Y_MAC/2*(-sin(2*ALE)*sin(2*Beta));    % 뒷젖침각과 옆 미끄러짐각으로 생기는 롤링 모멘트 계수
-C_L_roll_diangle = -diangle*CLa*Beta*Y_MAC/b;   %상반각과 여ㅠ 미끄러워짐각으로 생기는 롤링 모멘트 계수
+C_L_roll_ALE = CLa*(a_wing - a_0wing)*Y_MAC/2*(-sin(2*ALE)*sin(2*Beta));    % 뒷젖침각과 옆 미끄러짐각으로 생기는 롤링 모멘트 계수 (* Sweep 이나 ALE로 구성되어 있음)
+C_L_roll_diangle = -diangle*CLa*Beta*Y_MAC/b;   %상반각과 옆 미끄러워짐각으로 생기는 롤링 모멘트 계수
 C_L_roll = C_L_roll_ALE+C_L_roll_diangle;
 
-%% 항력계수 (받음각 a_wing일 때)
+%% 항력계수 (받음각 a_wing일 때) 
 
 t_c = 0.12;  % thickness ratio of the airfoil section
 S_wet = 2*Sw;  % 공기에 노출된 날개 면적 (2*Sw와 비슷)
 p = 1.225;  % density of air [kg/m^3]
 mu = 1.785*10^(-5); % 공기 점성계수
-V = 17;     % 속도
+V = 17;     % 속도(* Variant처리)
 l = c(Y_MAC);   % 특성길이
 R_l = p*V*l/mu; % Reynolds number
 C_f = 0.0054629; % skin friction coefficient 표면 마찰계수    (Figure 5.31)
@@ -82,7 +82,7 @@ b_ai = 0.5;  % inner coordinates of aileron [m]
 b_ao = 0.7;  % outer coordinates of aileron [m]
 Ca_C = 0.2;  % ratio of aileron chord to wing chord
 cl_delta_theory = 3.7; % Theoretical section-lift effectiveness [/rad]  (Figure 5.14)
-cla_theory = 2*pi/sqrt(1-Minf^2);   % theory lift effecriveness [/rad]
+cla_theory = 2*pi/sqrt(1-Minf^2);   % theory lift effectiveness [/rad] (* 어디서 왔는지 체크)
 cl_over_cl_theory = 0.91; % Empirical section-lift effectiveness  (Figure 5.15)
 
 C_l_delta_aileron = 1/Beta*(cl_over_cl_theory)*cl_delta_theory;
