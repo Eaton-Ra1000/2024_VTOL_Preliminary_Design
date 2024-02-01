@@ -120,5 +120,5 @@ C_DR = 0.9;
 Y_d = 0.4;  % coordinate of mean drag of three lifting surfaces(m)
 Sh = 0.1;   % horizon tail wing area [m^2]
 Sv = 0.02;  % vertical tail wing area [m^2]
-P_ss = sqrt(2*L_A/p/(Sw+Sh+Sv)/C_DR/Y_d^3) % Steady State Roll Rate [rad/s]
+P_ss = sqrt(2*L_A/p/(Sw+Sh+Sv)/C_DR/Y_d^3); % Steady State Roll Rate [rad/s]
 
